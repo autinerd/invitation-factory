@@ -1,0 +1,34 @@
+<html>
+<body>
+    <%= if (invitation.Salutation == 0) { %>
+        <%= if (guest.Gender == 1) { %>
+            <p>Lieber <%= guest.Name %>,</p>
+        <% } else if (guest.Gender == 2) { %>
+            <p>Liebe <%= guest.Name %>,</p>
+        <% } else if (guest.Gender == 3) { %>
+            <p>Liebe*r <%= guest.Name %>,</p>
+        <% } %>
+    <% } else if (invitation.Salutation == 1) { %>
+        <%= if (guest.Gender == 1) { %>
+            <p>Sehr geehrter Herr <%= guest.Name %>,</p>
+        <% } else if (guest.Gender == 2) { %>
+            <p>Sehr geehrte Frau <%= guest.Name %>,</p>
+        <% } else if (guest.Gender == 3) { %>
+            <p>Sehr geehrte*r <%= guest.Name %>,</p>
+        <% } %>
+    <% } else if (invitation.Salutation == 2) { %>
+        <p>Guten Tag <%= guest.Name %>,</p>
+    <% } else if (invitation.Salutation == 3) { %>
+        <p>Moin <%= guest.Name %>,</p>
+    <% } %>
+
+    <p>You have got an invitation from <%= sender %>!</p>
+
+    <p><%= htmlEscape(invitation.Mailtext) %></p>
+
+    <p>To accept or decline the invitation, click on <a href="<%= response_url %>">this link</a>.</p>
+
+    <p style="size: 8pt">This invitation is brought to you by <a href="https://invitation-factory.tk/">Invitation Factory</a></p>
+</body>
+
+</html>

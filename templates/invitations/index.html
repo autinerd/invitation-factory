@@ -1,0 +1,41 @@
+<div class="page-header">
+  <h1>Invitations</h1>
+</div>
+<ul class="list-unstyled list-inline">
+  <li><a href="<%= newInvitationsPath() %>" class="btn btn-primary">New invitation</a></li>
+</ul>
+
+<table class="table table-striped">
+  <thead>
+    <th>&nbsp;</th>
+  </thead>
+  <tbody>
+    <%= for (invitation) in invitations { %>
+    <tr>
+      <td>
+        <div>
+          Invitation:
+          <%= invitation.CreatedAt %> (<%= len(invitation.Guests) %> guests), Status:
+          <%= if (invitation.SentToGuests == true) { %>
+          already sent to guests
+          <% } else { %>
+          open
+          <% } %>
+        </div>
+      </td>
+      <td>
+        <div class="pull-right">
+          <a href="<%= invitationPath({ invitation_id: invitation.ID }) %>" class="btn btn-info">Show</a>
+          <%= if (!invitation.SentToGuests) { %>
+          <a href="<%= editInvitationPath({ invitation_id: invitation.ID }) %>" class="btn btn-warning">Edit</a>
+          <% } else { %>
+          <a href="#" class="btn btn-warning disabled">Edit</a>
+          <% } %>
+          <a href="<%= invitationPath({ invitation_id: invitation.ID }) %>" data-method="DELETE" data-confirm="Are you sure to delete the invitation?"
+            class="btn btn-danger">Delete</a>
+        </div>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

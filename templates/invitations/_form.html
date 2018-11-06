@@ -1,0 +1,9 @@
+<div class="form-group">
+    <%= f.SelectTag("Salutation", {options: {"Liebe/r Max": 0, "Sehr geehrte/r Herr Muster": 1, "Guten Tag Max Muster": 2, "Moin Max": 3}}) %>
+</div>
+
+<div class="form-group">
+    <label for="Mailtext">Text Body</label>
+    <%= f.TextArea("Mailtext", {hide_label: true, rows: 4, maxlength: 4000}) %>
+</div>
+<button class="btn btn-success" role="submit">Save</button>

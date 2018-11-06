@@ -1,0 +1,123 @@
+<div class="page-header">
+  <h1>Invitation</h1>
+</div>
+<p>
+  Created at:
+  <%= invitation.CreatedAt %>
+</p>
+<div class="form-group">
+  <select class="form-control" disabled="disabled">
+    <%= if (invitation.Salutation == 0) { %>
+    <option>Liebe/r Max</option>
+    <% } else if (invitation.Salutation == 1) { %>
+    <option>Sehr geehrte/r Herr Muster</option>
+    <% } else if (invitation.Salutation == 2) { %>
+    <option>Guten Tag Max Muster</option>
+    <% } else if (invitation.Salutation == 3) { %>
+    <option>Moin Max</option>
+    <% } %>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="Mailtext">Text Body</label>
+  <textarea class="form-control" name="Mailtext" rows="4" maxlength="4000" readonly="readonly"><%= invitation.Mailtext %></textarea>
+</div>
+<h2>Guests</h2>
+
+<table id="receiver" class="table order-list">
+  <thead>
+    <tr>
+      <td>Gender</td>
+      <td>Name</td>
+      <td>Email</td>
+      <%= if (invitation.SentToGuests == true) { %>
+      <td>Status</td>
+      <td>Additional Comment</td>
+      <% } %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for (i, guest) in guests { %>
+    <tr>
+      <td class="col-sm-4" data-label="Gender: ">
+        <div class="form-group">
+          <div class="form-check form-check-inline">
+            <%= if (guest.Gender == 1) { %>
+            <input class="form-check-input" type="radio" name="gender<%= i %>" id="inlineRadio<%= i %>1" value="1" form="invitation-form"
+              disabled="disabled" checked="checked" />
+            <% } else { %>
+            <input class="form-check-input" type="radio" name="gender<%= i %>" id="inlineRadio<%= i %>1" value="1" form="invitation-form"
+              disabled="disabled" />
+            <% } %>
+            <label class="form-check-label" for="inlineRadio<%= i %>1">male</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= if (guest.Gender == 2) { %>
+            <input class="form-check-input" type="radio" name="gender<%= i %>" id="inlineRadio<%= i %>2" value="2" form="invitation-form"
+              disabled="disabled" checked="checked" />
+            <% } else { %>
+            <input class="form-check-input" type="radio" name="gender<%= i %>" id="inlineRadio<%= i %>2" value="2" form="invitation-form"
+              disabled="disabled" />
+            <% } %>
+            <label class="form-check-label" for="inlineRadio<%= i %>2">female</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= if (guest.Gender == 3) { %>
+            <input class="form-check-input" type="radio" name="gender<%= i %>" id="inlineRadio<%= i %>3" value="3" form="invitation-form"
+              disabled="disabled" checked="checked" />
+            <% } else { %>
+            <input class="form-check-input" type="radio" name="gender<%= i %>" id="inlineRadio<%= i %>3" value="3" form="invitation-form"
+              disabled="disabled" />
+            <% } %>
+            <label class="form-check-label" for="inlineRadio<%= i %>3">diverse</label>
+          </div>
+      </td>
+      <td class="col-sm-3" data-label="Name: ">
+        <input type="name" class="form-control" name="name<%= i %>" form="invitation-form" readonly="readonly" value="<%= guest.Name %>" />
+      </td>
+      <td class="col-sm-4" data-label="E-Mail: ">
+        <input type="email" class="form-control" name="mail<%= i %>" form="invitation-form" readonly="readonly" value="<%= guest.Email %>" />
+      </td>
+      <%= if (invitation.SentToGuests == true) { %>
+      <td>
+        <%= if (guest.Status == 0) { %>
+        <div class="status-unknown" title="not responded">⚫</div>
+        <% } else if (guest.Status == 1) { %>
+        <div class="status-ok" title="invitation accepted">⚫</div>
+        <% } else if (guest.Status == 2) { %>
+        <div class="status-fail" title="invitation declined">⚫</div>
+        <% } %>
+      </td>
+      <td>
+        <div><%= guest.AdditionalComment %></div>
+      </td>
+      <% } %>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<ul class="list-unstyled list-inline">
+  <li class="list-inline-item">
+    <a href="<%= invitationsPath() %>" class="btn btn-info">Back to all Invitations</a>
+  </li>
+  <li class="list-inline-item">
+    <%= if (!invitation.SentToGuests) { %>
+    <a href="<%= editInvitationPath({ invitation_id: invitation.ID }) %>" class="btn btn-warning">Edit</a>
+    <% } else { %>
+    <a href="#" class="btn btn-warning disabled">Edit</a>
+    <% } %>
+  </li>
+  <li class="list-inline-item">
+    <%= if (!invitation.SentToGuests) { %>
+    <a href="<%= `/invitations/`+invitation.ID+`/send` %>" class="btn btn-info">Send mails to guests</a>
+    <% } else { %>
+    <a href="#" class="btn btn-info disabled">Send mails to guests</a>
+    <% } %>
+  </li>
+  <li class="list-inline-item">
+    <a href="<%= invitationPath({ invitation_id: invitation.ID }) %>" data-method="DELETE" data-confirm="Are you sure to delete the invitation?"
+      class="btn btn-danger">Destroy</a>
+  </li>
+</ul>

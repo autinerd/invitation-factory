@@ -1,0 +1,11 @@
+<div class="auth-wrapper">
+  <div class="sign-form">
+    <h1>Sign In</h1>
+
+    <%= form_for(user, {action: signinPath()}) { %>
+      <%= f.InputTag("Email", {type: "email", required: "required", placeholder: "mail@example.com"}) %>
+      <%= f.InputTag("Password", {type: "password", required: "required"}) %>
+      <button class="btn btn-success">Sign In!</button>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+poster/baposter.cls linguist-vendored=true
+postfix/* linguist-generated=true
+postgresql/* linguist-generated=true
+pgadmin4/* linguist-generated=true
+nginx/* linguist-generated=true
+letsencrypt/* linguist-generated=true
+default linguist-generated=true

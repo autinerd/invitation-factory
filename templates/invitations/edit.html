@@ -1,0 +1,80 @@
+<div class="page-header">
+  <h1>Edit Invitation</h1>
+</div>
+<form>
+<div class="container">
+  <table id="receiver" class="table order-list">
+    <thead>
+      <tr>
+        <td>Gender</td>
+        <td>Name</td>
+        <td>Email</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% let index = 0 %>
+      <%= for (i, guest) in guests { %>
+      <tr>
+        <td class="col-sm-4 gender-radio-buttons" data-label="Gender: ">
+          <div class="form-group">
+            <div class="form-check form-check-inline">
+              <%= if (guest.Gender == 1) { %>
+              <input class="form-check-input" type="radio" name="gender<%= i %>" id="inlineRadio<%= i %>1" value="1"
+                form="invitation-form" checked="checked" />
+              <% } else { %>
+              <input class="form-check-input" type="radio" name="gender<%= i %>" id="inlineRadio<%= i %>1" value="1"
+                form="invitation-form" />
+              <% } %>
+              <label class="form-check-label" for="inlineRadio<%= i %>1">male</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <%= if (guest.Gender == 2) { %>
+              <input class="form-check-input" type="radio" name="gender<%= i %>" id="inlineRadio<%= i %>2" value="2"
+                form="invitation-form" checked="checked" />
+              <% } else { %>
+              <input class="form-check-input" type="radio" name="gender<%= i %>" id="inlineRadio<%= i %>2" value="2"
+                form="invitation-form" />
+              <% } %>
+              <label class="form-check-label" for="inlineRadio<%= i %>2">female</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <%= if (guest.Gender == 3) { %>
+              <input class="form-check-input" type="radio" name="gender<%= i %>" id="inlineRadio<%= i %>3" value="3"
+                form="invitation-form" checked="checked" />
+              <% } else { %>
+              <input class="form-check-input" type="radio" name="gender<%= i %>" id="inlineRadio<%= i %>3" value="3"
+                form="invitation-form" />
+              <% } %>
+              <label class="form-check-label" for="inlineRadio<%= i %>3">diverse</label>
+            </div>
+        </td>
+        <td class="col-sm-3" data-label="Name: ">
+          <input type="name" class="form-control" name="name<%= i %>" form="invitation-form" value="<%= guest.Name %>" />
+        </td>
+        <td class="col-sm-4" data-label="E-Mail: ">
+          <input type="email" class="form-control" name="mail<%= i %>" form="invitation-form" value="<%= guest.Email %>" />
+        </td>
+        <td class="col-sm-2"><input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete" id="delete<%= i %>">
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5">
+          <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row" />
+        </td>
+      </tr>
+      <tr>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+</form>
+<%= form_for(invitation, {action: invitationPath({ invitation_id: invitation.ID }), method: "PUT"}) { %>
+<%= partial("invitations/form.html") %>
+<input type="hidden" id="guestcount" name="guestcount" value="<%= len(guests) %>"/>
+<a href="<%= invitationPath({ invitation_id: invitation.ID }) %>" class="btn btn-warning" data-confirm="Are you sure?">Cancel</a>
+<% } %>
+
+<%= javascriptTag("addrow.js", {crossorigin: "anonymous", integrity: addrow_js, nonce: nonce}) %>

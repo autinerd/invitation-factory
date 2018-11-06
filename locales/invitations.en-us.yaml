@@ -1,0 +1,6 @@
+- id: "invitation.created.success"
+  translation: "Invitation was successfully created."
+- id: "invitation.updated.success"
+  translation: "Invitation was successfully updated."
+- id: "invitation.destroyed.success"
+  translation: "Invitation was successfully destroyed."

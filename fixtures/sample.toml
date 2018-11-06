@@ -1,0 +1,67 @@
+[[scenario]]
+name = "Test data"
+
+  [[scenario.table]]
+    name = "invitations"
+
+    [[scenario.table.row]]
+    id = "<%= uuidNamed(`invitation1`) %>"
+    created_at = "<%= now() %>"
+    updated_at = "<%= now() %>"
+    userid = "<%= uuidNamed(`sonja`) %>"
+    salutation = 1
+    mailtext = "Sie sind herzlich eingeladen! Grüße"
+    senttoguests = 0
+
+    [[scenario.table.row]]
+    id = "<%= uuidNamed(`invitation2`) %>"
+    created_at = "<%= now() %>"
+    updated_at = "<%= now() %>"
+    userid = "<%= uuidNamed(`sonja`) %>"
+    salutation = 3
+    mailtext = "Sie sind herzlich eingeladen! Grüße"
+    senttoguests = 0
+
+  [[scenario.table]]
+    name = "users"
+
+    [[scenario.table.row]]
+      id = "<%= uuidNamed(`sonja`) %>"
+      email = "sonja@example.com"
+      created_at = "<%= now() %>"
+      updated_at = "<%= now() %>"
+      verified = true
+      password_hash = "<%= hash(`123456`) %>"
+
+    [[scenario.table.row]]
+      id = "<%= uuidNamed(`marco`) %>"
+      email = "marco@example.com"
+      created_at = "<%= now() %>"
+      updated_at = "<%= now() %>"
+      verified = true
+      password_hash = "<%= hash(`12345678`) %>"
+
+  [[scenario.table]]
+    name = "guests"
+
+    [[scenario.table.row]]
+      id = "<%= uuid() %>"
+      email = "mario@example.com"
+      invitationid = "<%= uuidNamed(`invitation1`) %>"
+      created_at = "<%= now() %>"
+      updated_at = "<%= now() %>"
+      gender = 1
+      name = "Mario"
+      status = 0
+      additional_comment = ""
+
+    [[scenario.table.row]]
+      id = "<%= uuid() %>"
+      email = "martha@example.com"
+      invitationid = "<%= uuidNamed(`invitation1`) %>"
+      created_at = "<%= now() %>"
+      updated_at = "<%= now() %>"
+      gender = 2
+      name = "Martha"
+      status = 0
+      additional_comment = ""

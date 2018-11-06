@@ -1,0 +1,32 @@
+    <%= if (invitation.Salutation == 0) { %>
+        <%= if (guest.Gender == 1) { %>
+            Lieber <%= guest.Name %>,
+        <% } else if (guest.Gender == 2) { %>
+            Liebe <%= guest.Name %>,
+        <% } else if (guest.Gender == 3) { %>
+            Liebe*r <%= guest.Name %>,
+        <% } %>
+    <% } else if (invitation.Salutation == 1) { %>
+        <%= if (guest.Gender == 1) { %>
+            Sehr geehrter Herr <%= guest.Name %>,
+        <% } else if (guest.Gender == 2) { %>
+            Sehr geehrte Frau <%= guest.Name %>,
+        <% } else if (guest.Gender == 3) { %>
+            Sehr geehrte*r <%= guest.Name %>,
+        <% } %>
+    <% } else if (invitation.Salutation == 2) { %>
+        Guten Tag <%= guest.Name %>,
+    <% } else if (invitation.Salutation == 3) { %>
+        Moin <%= guest.Name %>,
+    <% } %>
+
+    You have got an invitation from <%= sender %>!
+
+    <%= htmlEscape(invitation.Mailtext) %>
+
+    To accept or decline the invitation, click on this link: <%= response_url %>
+
+
+
+
+    This invitation is brought to you by Invitation Factory: https://invitation-factory.tk/

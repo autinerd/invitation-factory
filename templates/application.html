@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Infact</title>
+	<%= stylesheetTag("application.css", {crossorigin: "anonymous", integrity: application_css, nonce: nonce}) %>
+	<%= javascriptTag("hammer.min.js", {crossorigin: "anonymous", integrity: hammer_min_js, nonce: nonce}) %>
+	<meta name="csrf-param" content="authenticity_token" />
+	<meta name="csrf-token" content="<%= authenticity_token %>" />
+	<link rel="icon" sizes="128x128" href="<%= assetPath(`images/favicon.ico`) %>">
+	<link rel="apple-touch-icon" href="<%= assetPath(`images/favicon.ico`) %>">
+	<link rel="msapplication-square150x150logo" href="<%= assetPath(`images/favicon.ico`) %>">
+	<meta name="theme-color" content="#343a40">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+
+<body>
+	<nav class="navbar navbar-dark bg-dark navbar-expand-lg sticky-top">
+
+	<a class="navbar-brand d-none d-md-block" href="/"><img src="<%= assetPath(`images/favicon.ico`) %>"/></a>
+
+		<%= if (current_user) { %>
+		
+		<button class="navbar-toggler" type="button" id="sidebarCollapse" aria-controls="sidebar" aria-expanded="false"
+		 aria-label="Toggle sidebar"><img src="<%= assetPath(`images/menu.png`) %>" height="30" width="30" /></a>
+
+		</button>
+		
+		<ul class="navbar-nav navbar-custom ml-auto">
+			<li class="nav-item">
+				<span class="email d-none d-md-block ml-auto">
+					<%= current_user.Email %></span>
+			</li>
+			<li>
+				<a href="/signout" data-method="DELETE" class="btn btn-danger">Log out</a>
+			</li>
+		</ul>
+		<% } else { %>
+		<ul class="navbar-nav ml-auto">
+	
+			<li class="nav-item">
+				<a href="/signin" class="btn btn-primary btn-login">Log in</a>
+			</li>
+			<li>
+				<a href="/users/new" class="btn btn-success">Register</a>
+			</li>
+		</ul>
+		<% } %>
+	</nav>
+	<%= if (current_user) { %>
+	<div class="wrapper">
+		<nav id="sidebar">
+			<ul class="sidebar list-unstyled components">
+				<li class="active">
+					<a href="/">Home</a>
+				</li>
+				<li>
+					<a href="/invitations/new">New Invitation</a>
+				</li>
+				<li>
+					<a href="/invitations#Show">Manage Invitations</a>
+				</li>
+				<li>
+					<a href="https://poster.invitation-factory.tk/">Scientific Poster</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="container">
+			<%= partial("flash.html") %>
+			<%= yield %>
+		</div>
+	</div>
+	<% } else { %>
+	<div class="container">
+		<%= partial("flash.html") %>
+		<%= yield %>
+	</div>
+	<% } %>
+
+	<%= javascriptTag("application.js", {crossorigin: "anonymous", integrity: application_js, nonce: nonce}) %>
+</body>
+
+</html>
